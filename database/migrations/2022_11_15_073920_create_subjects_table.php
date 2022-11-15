@@ -12,13 +12,10 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('subjects', function (Blueprint $table) {
             $table->id();
-            $table->text('fio');
-            $table->date('birth_date');
-            $table->unsignedBigInteger('group_id');
+            $table->string('name');
             $table->timestamps();
-            $table->foreign('group_id')->on('groups')->references('id');
         });
     }
 
@@ -29,6 +26,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('subjects');
     }
 };
