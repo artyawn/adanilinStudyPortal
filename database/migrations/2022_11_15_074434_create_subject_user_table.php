@@ -16,8 +16,6 @@ return new class extends Migration {
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('subject_id');
             $table->integer('score');
-            $table->index('user_id', 'subject_user_user_idx');
-            $table->index('subject_id', 'subject_user_subject_idx');
             $table->foreign('user_id', 'subject_user_user_fk')->on('users')->references('id')->onDelete('cascade');
             $table->foreign('group_id', 'subject_user_subject_fk')->on('subjects')->references('id')->onDelete('cascade');
             $table->uniqe(['user_id','subject_id'], 'user_id_subject_id_uniqe');

@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->date('birth_date');
             $table->unsignedBigInteger('group_id');
             $table->timestamps();
-            $table->index('group_id', 'user_group_idx');
             $table->foreign('group_id', 'group_user_group_fk')->on('groups')->references('id');
         });
     }
