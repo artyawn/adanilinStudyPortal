@@ -8,6 +8,9 @@
                 <input type="text" class="form-control" name="name"
                        id="name" value="{{$group->name}}">
                 <br>
+                @error('name')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
                 <button type="submit" class="btn btn-primary btn-sm">Изменить</button>
             </form>
         </div>
