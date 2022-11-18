@@ -4,7 +4,7 @@
             @csrf
                 @method($method)
             <input type="text" class="form-control" name="name"
-                   id="name" placeholder="Введите название группы" value="{{ $value }}">
+                   id="name" placeholder="Введите название группы" value="{{ old('name', $group->name ?? null) }}">
             <br>
             @error('name')
             <div class="alert alert-danger">{{ $message }}</div>
