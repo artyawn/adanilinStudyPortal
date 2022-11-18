@@ -24,7 +24,7 @@ class GroupController extends Controller
     {
         Group::create($request->validated());
 
-        return redirect(route('groups.index'));
+        return redirect()->route('groups.index');
     }
 
     public function show(Group $group)
@@ -41,13 +41,13 @@ class GroupController extends Controller
     {
         $group->update($request->validated());
 
-        return redirect(route('groups.index'));
+        return redirect()->route('groups.index');
     }
 
     public function destroy(Group $group)
     {
         $group->delete();
 
-        return redirect(route('groups.index'));
+        return redirect()->route('groups.index');
     }
 }
