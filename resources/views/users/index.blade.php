@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <a href="{{ route('groups.users.create', $group->id) }}" class="link-dark">
+    <a href="{{ route('users.create') }}" class="link-dark">
         <h6>Добавить студента</h6></a>
     <table class="table table-borderless">
         <thead>
@@ -14,10 +14,10 @@
         @foreach($users as $user)
             <tr>
                 <td>{{ $user->id }}</td>
-                <td><a href="{{ route('groups.users.show', [$group->id, $user->id]) }}">{{ $user->fio }}</a></td>
+                <td><a href="{{ route('users.show', $user->id) }}">{{ $user->fio }}</a></td>
                 <td><div class="row">
-                        <div class="col"><a href="{{ route('groups.users.edit', [$group->id, $user->id] ) }}" class="btn btn-primary">Изменить</a></div>
-                        <div class="col"><form action="{{ route('groups.users.destroy', [$group->id, $user->id]) }}" method="post">
+                        <div class="col"><a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Изменить</a></div>
+                        <div class="col"><form action="{{ route('users.destroy', $user->id) }}" method="post">
                                 @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-danger">Удалить</button>
@@ -32,24 +32,3 @@
         {{ $users->links() }}
     </div>
 @endsection
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

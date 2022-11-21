@@ -25,7 +25,8 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'fio'=>'required|string|max:100',
-            'birth_date'=>'required|date'
+            'birth_date'=>'required|date',
+            'group_id'=>'required|int'
         ];
     }
 }

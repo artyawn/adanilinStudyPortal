@@ -10,7 +10,6 @@
             <td><a href="{{ route('groups.show', $group->id) }}">{{ $group->name }}</a></td>
             <td><div class="row">
                     <div class="col"><a href="{{ route('groups.edit', $group->id) }}" class="btn btn-primary">Изменить</a></div>
-                    <div class="col"><a href="{{ route('groups.users.index', $group->id) }}" class="btn btn-primary">Студенты</a></div>
                     <div class="col"><form action="{{ route('groups.destroy', $group->id) }}" method="post">
                             @csrf
                             @method('delete')

@@ -15,6 +15,17 @@
             @error('birth_date')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
+            <select class="form-select" name="group_id" >
+                @foreach($groups as $group)
+            <option @if(isset($user) and $group->id == $user->group->id)
+                    selected
+                    @endif value="{{ $group->id }}">{{ $group->name }}</option>
+                @endforeach
+            </select>
+            <br>
+            @error('group_id')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <button type="submit" class="btn btn-primary btn-sm">Добавить</button>
         </form>
     </div>
