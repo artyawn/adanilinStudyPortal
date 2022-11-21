@@ -17,7 +17,7 @@
             @enderror
             <select class="form-select" name="group_id" >
                 @foreach($groups as $group)
-            <option @if(isset($user) and $group->id == $user->group->id)
+            <option @if (isset($user) && $group->id == $user->group->id)
                     selected
                     @endif value="{{ $group->id }}">{{ $group->name }}</option>
                 @endforeach
