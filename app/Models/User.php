@@ -14,11 +14,11 @@ class User extends Model
 
     public function group()
     {
-        $this->belongsTo(Group::class, 'group_id', 'id');
+        return $this->belongsTo(Group::class, 'group_id', 'id');
     }
 
     public function subjects()
     {
-        $this->belongsToMany(Subject::class)->withPivot('score');
+        return $this->belongsToMany(Subject::class)->withPivot('score');
     }
 }

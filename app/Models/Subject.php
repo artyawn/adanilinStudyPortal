@@ -10,6 +10,6 @@ class Subject extends Model
 
     public function users()
     {
-        $this->belongsToMany(User::class)->withPivot('score');
+        return $this->belongsToMany(User::class)->withPivot('score');
     }
 }
