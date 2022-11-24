@@ -33,7 +33,9 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        return view('users.show', compact( 'user'));
+        $subjects = $user->subjects;
+
+        return view('users.show', compact( 'user','subjects'));
     }
 
     public function edit(User $user)
