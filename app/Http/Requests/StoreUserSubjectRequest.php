@@ -31,7 +31,7 @@ class StoreUserSubjectRequest extends FormRequest
                 'int',
                 new isScored($this->user->id)
             ]
-            ];
+        ];
     }
 
 }

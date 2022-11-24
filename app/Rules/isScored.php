@@ -29,8 +29,7 @@ class isScored implements Rule
      */
     public function passes($attribute, $value)
     {
-        if(User::find($this->user_id)->subjects->firstWhere('id', $value)) {
-
+        if (User::find($this->user_id)->subjects->firstWhere('id', $value)) {
             return false;
         }
 
