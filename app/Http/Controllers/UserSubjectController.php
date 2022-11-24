@@ -19,9 +19,6 @@ class UserSubjectController extends Controller
 
     public function store(StoreUserSubjectRequest $request, User $user)
     {
-        if($request->isScored($user)) {
-            return $request->isScored($user);
-        }
         $user->subjects()->attach($request->validated('subject_id'), ['score' => $request->validated('score')]);
 
         return redirect()->route('users.show', $user);

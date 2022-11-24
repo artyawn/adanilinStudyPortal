@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\isScored;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUserSubjectRequest extends FormRequest
@@ -24,18 +25,13 @@ class StoreUserSubjectRequest extends FormRequest
     public function rules()
     {
         return [
-            'subject_id' => 'required|int',
             'score' => 'required|int|max:10',
+            'subject_id' => [
+                'required',
+                'int',
+                new isScored($this->user->id)
+            ]
             ];
     }
 
-    public function isScored($user)
-    {
-        if ($user->subjects->firstWhere('id', $this->validated('subject_id'))) {
-           return redirect()
-                ->route('users.subjects.create', $user)
-                ->withErrors(['subject' => 'This subject already scored']);
-        }
-        return null;
-    }
 }

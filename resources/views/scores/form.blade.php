@@ -13,7 +13,7 @@
             @error('subject_id')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
-                @error('subject')
+                @error('user_id')
                 <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             @endif
