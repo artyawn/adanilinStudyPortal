@@ -5,8 +5,8 @@
             @method($method)
             @if (!isset($subject))
             <select class="form-select" name="subject_id" >
-                @foreach($subjects as $subject)
-                    <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                @foreach($subjects as $item)
+                    <option value="{{ $item->id }}">{{ $item->name }}</option>
                 @endforeach
             </select>
             <br>

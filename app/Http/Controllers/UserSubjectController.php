@@ -19,11 +19,8 @@ class UserSubjectController extends Controller
 
     public function store(StoreUserSubjectRequest $request, User $user)
     {
-        if($user->subjects()->where('id', $request->validated('subject_id')))
-        {
-            return redirect()
-                ->route('users.subjects.create', $user)
-                ->withErrors(['subject' => 'This subject already scored']);
+        if($request->isScored($user)) {
+            return $request->isScored($user);
         }
         $user->subjects()->attach($request->validated('subject_id'), ['score' => $request->validated('score')]);
 
@@ -32,6 +29,8 @@ class UserSubjectController extends Controller
 
     public function edit(User $user, Subject $subject)
     {
+        $subject = $user->subjects->firstWhere('id', $subject->id);
+
         return view('scores.edit', compact( 'user', 'subject'));
     }
 

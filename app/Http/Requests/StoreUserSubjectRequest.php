@@ -25,7 +25,17 @@ class StoreUserSubjectRequest extends FormRequest
     {
         return [
             'subject_id' => 'required|int',
-            'score' => 'required|int|max:10'
-        ];
+            'score' => 'required|int|max:10',
+            ];
+    }
+
+    public function isScored($user)
+    {
+        if ($user->subjects->firstWhere('id', $this->validated('subject_id'))) {
+           return redirect()
+                ->route('users.subjects.create', $user)
+                ->withErrors(['subject' => 'This subject already scored']);
+        }
+        return null;
     }
 }
