@@ -4,29 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Subject;
 use App\Models\User;
+use App\Service\GradeBookService;
 use Illuminate\Http\Request;
 
 class GradeBookController extends Controller
 {
-    public function index()
+    public function index(GradeBookService $service)
     {
-        $subjects = Subject::all();
-        $users = User::paginate(10);
-        $average = $subjects->map(function ($subject){
-           return  $subject->users->map(function ($user) {
-               return [
-                   'score' => $user->pivot->score
-               ];
-           })->avg('score');
-        });
-
-        $good_users = User::with('subjects')->get()->filter(function($user){
-        return $user->subjects->min('pivot.score') == 4;
-        });
-
-        $best_users = User::with('subjects')->get()->filter(function($user){
-            return $user->subjects->min('pivot.score') == 5;
-        });
+        $users = $service->users();
+        $subjects = $service->subjects();
+        $average = $service->average();
+        $good_users = $service->goodUsers();
+        $best_users = $service->bestUsers();
 
         return view('book.index', compact('subjects', 'users', 'average', 'good_users', 'best_users'));
    }
