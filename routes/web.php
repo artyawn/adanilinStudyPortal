@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GradeBookController;
 use App\Http\Controllers\GroupController;
 
 use App\Http\Controllers\SubjectController;
@@ -25,3 +26,5 @@ Route::resource('groups',GroupController::class);
 Route::resource('subjects',SubjectController::class);
 Route::resource('users', UserController::class);
 Route::resource('users.subjects', UserSubjectController::class);
+Route::get('/gradeBook', [GradeBookController::class, 'index'])->name('gradeBook.index');
+
