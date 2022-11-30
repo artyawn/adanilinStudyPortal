@@ -9,18 +9,11 @@ use App\Models\User;
 
 class GradeBookService
 {
-    public function users()
-    {
-        $users = User::paginate(10);
-
-        return($users);
-    }
-
     public function subjects()
     {
         $subjects = Subject::all();
 
-        return($subjects);
+        return $subjects;
     }
 
     public function average()
@@ -40,16 +33,13 @@ class GradeBookService
         $good_users = User::with('subjects')->get()->filter(function($user){
             return $user->subjects->min('pivot.score') == 4;
         });
-
-        return($good_users);
+        return $good_users;
     }
 
     public function bestUsers(){
         $best_users = User::with('subjects')->get()->filter(function($user){
             return $user->subjects->min('pivot.score') == 5;
         });
-
-        return($best_users);
+        return $best_users;
     }
-
 }

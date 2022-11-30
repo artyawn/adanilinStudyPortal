@@ -26,5 +26,5 @@ Route::resource('groups',GroupController::class);
 Route::resource('subjects',SubjectController::class);
 Route::resource('users', UserController::class);
 Route::resource('users.subjects', UserSubjectController::class);
-Route::get('/gradeBook', [GradeBookController::class, 'index'])->name('gradeBook.index');
+Route::get('/gradebook', [GradeBookController::class, 'index'])->name('gradebook.index');
 

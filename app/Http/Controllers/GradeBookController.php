@@ -11,7 +11,7 @@ class GradeBookController extends Controller
 {
     public function index(GradeBookService $service)
     {
-        $users = $service->users();
+        $users = User::paginate(10);
         $subjects = $service->subjects();
         $average = $service->average();
         $good_users = $service->goodUsers();
