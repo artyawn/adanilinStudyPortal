@@ -15,7 +15,7 @@
         </tr>
             @foreach($users as $user)
                 <tr>
-                    <th scope="row">{{ $user->fio }}</th>
+                    <th class={{$user->color}} scope="row">{{ $user->fio }}</th>
                     @foreach($subjects as $subject)
                <td>{{ $user->subjects->firstWhere('id', $subject->id)->pivot->score ?? 0}}</td>
                     @endforeach

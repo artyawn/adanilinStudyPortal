@@ -3,8 +3,9 @@
     <div class="row">
     <div class="col-6">
     <h5>ФИО: {{ $user->fio }}</h5><br>
-    <h5>Дата рождения: {{ date("d.m.Y", strtotime($user->birth_date)) }}</h5>
+    <h5>Дата рождения: {{ $user->birth_date }}</h5>
     <h5>Группа: {{ $user->group->name }}</h5>
+    <h5>Адрес: {{ $user->full_address }}</h5>
     </div>
     <div class="col-6">
         <a href="{{ route('users.subjects.create', $user) }}" class="link-dark">
