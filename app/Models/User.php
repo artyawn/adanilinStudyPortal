@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -55,18 +57,20 @@ class User extends Model
         );
     }
 
-    protected function address(): Attribute
+    public function setAddressAttribute($value)
     {
-        return Attribute::make(
-            get: fn ($value) => mb_convert_case($value['city'], MB_CASE_TITLE, "UTF-8"),
-            set: fn ($value) => strtolower($value),
-        );
+        $value['city'] = mb_convert_case($value['city'], MB_CASE_TITLE, "UTF-8");
+        $value['street'] = mb_convert_case($value['street'], MB_CASE_TITLE, "UTF-8");
+        $this->attributes['address'] = json_encode($value);
     }
-
 
     public function getFullAddressAttribute()
     {
-        return "{$this->address['city']} {$this->address['street']} {$this->address['home']}";
+        if($this->address) {
+            return "{$this->address['city']} {$this->address['street']} {$this->address['home']}";
+        }
+        else {
+            return null;
+        }
     }
-
 }

@@ -19,6 +19,8 @@ class UserController extends Controller
 
     public function create()
     {
+//        $user = User::find(86);
+//        dd($user);
         $groups = Group::all();
 
         return view('users.create', compact('groups'));
