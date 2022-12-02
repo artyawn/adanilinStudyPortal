@@ -26,7 +26,11 @@ class StoreUserRequest extends FormRequest
         return [
             'fio'=>'required|string|max:100',
             'birth_date'=>'required|date',
-            'group_id'=>'required|int'
+            'group_id'=>'required|int',
+            'address'=>'array',
+            'address.city' => 'required|string',
+            'address.street' => 'required|string',
+            'address.home' => 'required|int'
         ];
     }
 }
