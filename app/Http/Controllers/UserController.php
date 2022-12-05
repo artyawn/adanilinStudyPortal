@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Http\Requests\FilterUserRequest;
+use App\Http\Requests\CreateUserRequest;
 use App\Models\Group;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index(FilterUserRequest $request)
+    public function index(CreateUserRequest $request)
     {
         $users = User::filter($request)->paginate(10);
 

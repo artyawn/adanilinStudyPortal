@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateNameRequest;
+use App\Http\Requests\CreateGroupRequest;
+use App\Http\Requests\CreateSubjectRequest;
 use App\Http\Requests\StoreSubjectRequest;
 use App\Http\Requests\UpdateSubjectRequest;
 use App\Models\Subject;
 
 class SubjectController extends Controller
 {
-    public function index(CreateNameRequest $request)
+    public function index(CreateSubjectRequest $request)
     {
         $subjects = Subject::filter($request)->paginate(10);
 

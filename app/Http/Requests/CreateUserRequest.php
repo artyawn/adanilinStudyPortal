@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateNameRequest extends FormRequest
+class CreateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class CreateNameRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string'
+            'fio' => 'string',
+            'birth_date' => 'date'
         ];
     }
 }

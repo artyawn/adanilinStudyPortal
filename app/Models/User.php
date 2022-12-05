@@ -76,8 +76,12 @@ class User extends Model
 
     public function scopeFilter($query, $request)
     {
-        if ($request->fio && $request->birth_date) {
-            $query->where('fio', 'like', "%{$request->fio}%")->where('birth_date', 'like', "%{$request->birth_date}%");
+        if ($request->fio) {
+            $query->where('fio', 'like', "%{$request->fio}%");
+        }
+
+        if ($request->birth_date) {
+            $query->where('birth_date', 'like', "%{$request->birth_date}%");
         }
     }
 }

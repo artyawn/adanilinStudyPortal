@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FilterUserRequest extends FormRequest
+class CreateSubjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class FilterUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'fio' => 'string',
-            'birth_date' => 'date'
+            'name' => 'string'
         ];
     }
 }
