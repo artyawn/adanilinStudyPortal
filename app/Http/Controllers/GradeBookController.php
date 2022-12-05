@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Subject;
 use App\Models\User;
-use App\Service\GradeBookService;
+use App\Services\GradeBookService;
 use Illuminate\Http\Request;
 
 class GradeBookController extends Controller

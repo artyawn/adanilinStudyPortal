@@ -73,4 +73,15 @@ class User extends Model
             return null;
         }
     }
+
+    public function scopeFilter($query, $request)
+    {
+        if ($request->fio) {
+            $query->where('fio', 'like', "%{$request->fio}%");
+        }
+
+        if ($request->birth_date) {
+            $query->where('birth_date', 'like', "%{$request->birth_date}%");
+        }
+    }
 }
