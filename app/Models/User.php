@@ -74,8 +74,10 @@ class User extends Model
         }
     }
 
-    public function scopeOfNameDate($query, $request)
+    public function scopeFilter($query, $request)
     {
-        return $query->where('fio', 'like', "%{$request->fio}%")->where('birth_date', 'like', "%{$request->birth_date}%");
+        if ($request->fio && $request->birth_date) {
+            $query->where('fio', 'like', "%{$request->fio}%")->where('birth_date', 'like', "%{$request->birth_date}%");
+        }
     }
 }

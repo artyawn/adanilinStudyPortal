@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\NameRequest;
+use App\Http\Requests\CreateNameRequest;
 use App\Http\Requests\StoreSubjectRequest;
 use App\Http\Requests\UpdateSubjectRequest;
 use App\Models\Subject;
 
 class SubjectController extends Controller
 {
-    public function index(NameRequest $request)
+    public function index(CreateNameRequest $request)
     {
-        $subjects = Subject::ofName($request)->paginate(10);
+        $subjects = Subject::filter($request)->paginate(10);
 
         return view('subjects.index', compact('subjects'));
     }

@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function index(FilterUserRequest $request)
     {
-        $users = User::ofNameDate($request)->paginate(10);
+        $users = User::filter($request)->paginate(10);
 
         return view('users.index', compact('users'));
     }

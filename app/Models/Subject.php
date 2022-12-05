@@ -16,8 +16,10 @@ class Subject extends Model
         return $this->belongsToMany(User::class)->withPivot('score');
     }
 
-    public function scopeOfName($query, $request)
+    public function scopeFilter($query, $request)
     {
-        return $query->where('name', 'like', "%{$request->name}%");
+        if($request->name) {
+            $query->where('name', 'like', "%{$request->name}%");
+        }
     }
 }

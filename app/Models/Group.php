@@ -16,8 +16,10 @@ class Group extends Model
         return $this->hasMany(User::class, 'group_id', 'id');
     }
 
-    public function scopeOfName($query, $request)
+    public function scopeFilter($query, $request)
     {
-            return $query->where('name', 'like', "%{$request->name}%");
+        if($request->name) {
+            $query->where('name', 'like', "%{$request->name}%");
+        }
     }
 }
