@@ -73,4 +73,9 @@ class User extends Model
             return null;
         }
     }
+
+    public function scopeOfNameDate($query, $request)
+    {
+        return $query->where('fio', 'like', "%{$request->fio}%")->where('birth_date', 'like', "%{$request->birth_date}%");
+    }
 }
