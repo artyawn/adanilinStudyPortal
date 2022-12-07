@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-6">
             <a href="{{ route('subjects.create') }}" class="link-dark">
-                <h6>Новая группа</h6></a>
+                <h6>Новый предмет</h6></a>
         </div>
         <div class="col-6">
             <form action="{{ route('subjects.index') }}" method="get">

@@ -44,6 +44,20 @@
             @error('group_id')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
+            <input type="text" class="form-control" name="email"
+                   id="email" placeholder="Введите email" value="{{ old('email', $user->email ?? null) }}">
+            <br>
+            @error('email')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+            @if(!isset($user))
+            <input type="text" class="form-control" name="password"
+                   id="password" placeholder="Введите пароль">
+            <br>
+            @endif
+            @error('password')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <button type="submit" class="btn btn-primary btn-sm">Добавить</button>
         </form>
     </div>

@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\GradeBookController;
 use App\Http\Controllers\GroupController;
-
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserSubjectController;
@@ -22,9 +22,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('groups',GroupController::class);
-Route::resource('subjects',SubjectController::class);
-Route::resource('users', UserController::class);
-Route::resource('users.subjects', UserSubjectController::class);
-Route::get('/gradebook', [GradeBookController::class, 'index'])->name('gradebook.index');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile',[ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile',[ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile',[ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('groups',GroupController::class);
+    Route::resource('subjects',SubjectController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('users.subjects', UserSubjectController::class);
+    Route::get('/gradebook', [GradeBookController::class, 'index'])->name('gradebook.index');
+});
+
+require __DIR__.'/auth.php';
