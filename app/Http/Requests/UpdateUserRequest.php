@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateUserRequest extends FormRequest
@@ -27,6 +28,7 @@ class UpdateUserRequest extends FormRequest
             'fio'=>'required|string|max:100',
             'birth_date'=>'required|date',
             'group_id'=>'required|int',
+            'email'=>'required|email|unique:'.User::class,
             'address'=>'array',
             'address.city' => 'required|string',
             'address.street' => 'required|string',

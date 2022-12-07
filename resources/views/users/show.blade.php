@@ -6,6 +6,7 @@
     <h5>Дата рождения: {{ $user->birth_date }}</h5>
     <h5>Группа: {{ $user->group->name }}</h5>
     <h5>Адрес: {{ $user->full_address }}</h5>
+    <h5>Email: {{ $user->email }}</h5>
     </div>
     <div class="col-6">
         <a href="{{ route('users.subjects.create', $user) }}" class="link-dark">
