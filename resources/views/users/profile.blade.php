@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
     <div class="row">
         <div class="col-6">
             <h5>Изменение личных данных</h5><br>
