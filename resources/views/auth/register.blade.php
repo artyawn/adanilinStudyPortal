@@ -16,13 +16,6 @@
                 <x-input-error :messages="$errors->get('fio')" class="mt-2" />
             </div>
 
-{{--                <!-- GroupSelect -->--}}
-{{--                <div class="mt-4">--}}
-{{--                    <x-input-label for="group_id" :value="__('Group')" />--}}
-{{--                    <x-text-input id="group_id" class="block mt-1 w-full" type="text" name="group_id" :value="old('group_id')" required />--}}
-{{--                    <x-input-error :messages="$errors->get('group_id')" class="mt-2" />--}}
-{{--                </div>--}}
-
             <!-- GroupSelect -->
                 <div class="mt-4">
                     <x-input-label for="group_id" :value="__('Group')" />

@@ -24,7 +24,7 @@ class StoreGroupRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|string|max:100'
+            'name' => 'required|string|max:100'
         ];
     }
 }

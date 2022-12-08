@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UpdateProfileRequest;
 use App\Models\Group;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +15,7 @@ class ProfileController extends Controller
         return view('users.profile', compact('groups'));
     }
 
-    public function update(UpdateUserRequest $request)
+    public function update(UpdateProfileRequest $request)
     {
         Auth::user()->update($request->validated());
 
