@@ -38,7 +38,9 @@
                 @enderror
                 <select class="form-select" name="group_id" >
                     @foreach($groups as $group)
-                        <option selected value="{{ Auth::user()->group->id }}">{{ Auth::user()->group->name }}</option>
+                        <option @if ($group->id == Auth::user()->group->id)
+                                selected
+                                @endif value="{{ $group->id }}">{{ $group->name }}</option>
                     @endforeach
                 </select>
                 <br>
