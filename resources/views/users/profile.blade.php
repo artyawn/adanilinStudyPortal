@@ -36,13 +36,7 @@
                 @error('address.home')
                 <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
-                <select class="form-select" name="group_id" >
-                    @foreach($groups as $group)
-                        <option @if ($group->id == Auth::user()->group->id)
-                                selected
-                                @endif value="{{ $group->id }}">{{ $group->name }}</option>
-                    @endforeach
-                </select>
+                <x-group-select id="group_id" class="block mt-1 w-full" type="text" name="group_id" :value="old('group_id')" required ></x-group-select>
                 <br>
                 @error('group_id')
                 <div class="alert alert-danger">{{ $message }}</div>

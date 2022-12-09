@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use App\Models\Group;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 
 class GroupSelect extends Component
@@ -16,6 +17,19 @@ class GroupSelect extends Component
     public function __construct()
     {
        $this->groups = Group::all();
+    }
+
+    public function isSelected($group_id, $user = null)
+    {
+        if ($user) {
+            if ($user->group->id == $group_id) {
+                return true;
+            }
+        }
+        elseif (Auth::user()?->group->id == $group_id) {
+            return true;
+        }
+        return false;
     }
 
     /**
