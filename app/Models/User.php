@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -63,6 +64,11 @@ class User extends Authenticatable
         $value['city'] = mb_convert_case($value['city'], MB_CASE_TITLE, "UTF-8");
         $value['street'] = mb_convert_case($value['street'], MB_CASE_TITLE, "UTF-8");
         $this->attributes['address'] = json_encode($value);
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
     }
 
     public function getFullAddressAttribute()

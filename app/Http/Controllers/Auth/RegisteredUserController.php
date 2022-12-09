@@ -44,7 +44,7 @@ class RegisteredUserController extends Controller
             'fio' => $request->fio,
             'group_id' => $request->group_id,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => $request->password
         ]);
 
         event(new Registered($user));

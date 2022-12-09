@@ -33,13 +33,7 @@
             @error('address.home')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
-            <select class="form-select" name="group_id" >
-                @foreach($groups as $group)
-            <option @if (isset($user) && $group->id == $user->group->id)
-                    selected
-                    @endif value="{{ $group->id }}">{{ $group->name }}</option>
-                @endforeach
-            </select>
+            <x-group-select :user="isset($user) ? $user : null" id="group_id" class="block mt-1 w-full" type="text" name="group_id" :value="old('group_id')" required ></x-group-select>
             <br>
             @error('group_id')
             <div class="alert alert-danger">{{ $message }}</div>

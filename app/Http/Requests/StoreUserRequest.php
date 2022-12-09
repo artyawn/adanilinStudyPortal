@@ -25,12 +25,12 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'fio'=>'required|string|max:100',
-            'birth_date'=>'required|date',
-            'group_id'=>'required|int',
-            'password'=>'required|string',
-            'email'=>'required|email|unique:'.User::class,
-            'address'=>'array',
+            'fio' => 'required|string|max:100',
+            'birth_date' => 'required|date',
+            'group_id' => 'required|int',
+            'password' => 'required|string',
+            'email' => 'required|email|unique:'.User::class,
+            'address' => 'array',
             'address.city' => 'required|string',
             'address.street' => 'required|string',
             'address.home' => 'required|int'

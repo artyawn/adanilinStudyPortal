@@ -13,7 +13,7 @@ class PasswordController extends Controller
     public function update(UpdatePasswordRequest $request)
     {
         Auth::user()->update([
-            'password' => Hash::make($request->validated('new_password'))
+            'password' => $request->validated('new_password')
         ]);
 
         return redirect()->route('profile.edit');
