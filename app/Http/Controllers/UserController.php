@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserCreated;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\CreateUserRequest;
@@ -30,8 +31,8 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        User::create($request->validated());
-        Mail::to($request->validated('email'))->send(new PasswordMail($request->validated('password')));
+        $user = User::create($request->validated());
+        event(new UserCreated($user, $request->validated('password')));
 
         return redirect()->route('users.index');
     }

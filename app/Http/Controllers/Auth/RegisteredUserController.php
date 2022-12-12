@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserCreated;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -47,7 +48,7 @@ class RegisteredUserController extends Controller
             'password' => $request->password
         ]);
 
-        event(new Registered($user));
+        event(new UserCreated($user, $request->password));
 
         Auth::login($user);
 
