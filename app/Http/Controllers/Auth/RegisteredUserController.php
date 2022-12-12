@@ -34,9 +34,11 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request);
         $request->validate([
             'fio' => ['required', 'string', 'max:255'],
             'group_id' => ['required', 'string', 'max:255'],
+            'role' => ['required', 'int'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -45,7 +47,8 @@ class RegisteredUserController extends Controller
             'fio' => $request->fio,
             'group_id' => $request->group_id,
             'email' => $request->email,
-            'password' => $request->password
+            'password' => $request->password,
+            'role' => $request->role
         ]);
 
         event(new UserCreated($user, $request->password));

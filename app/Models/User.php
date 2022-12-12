@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -16,7 +17,8 @@ class User extends Authenticatable
         'fio',
         'birth_date',
         'group_id',
-        'address'
+        'address',
+        'role'
     ];
 
     protected $casts = [
@@ -78,6 +80,18 @@ class User extends Authenticatable
         }
         else {
             return null;
+        }
+    }
+
+    public function getRoleAttribute()
+    {
+        foreach (Role::cases() as $role) {
+            if ($this->role == $role->value) {
+                return $role->name;
+            }
+            else {
+                return null;
+            }
         }
     }
 

@@ -38,6 +38,11 @@
             @error('group_id')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
+            <x-role-select :user="isset($user) ? $user : null" id="role" class="block mt-1 w-full" type="text" name="role" :value="old('role')" required ></x-role-select>
+            <br>
+            @error('role')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <input type="text" class="form-control" name="email"
                    id="email" placeholder="Введите email" value="{{ old('email', $user->email ?? null) }}">
             <br>

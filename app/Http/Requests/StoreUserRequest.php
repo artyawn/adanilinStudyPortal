@@ -28,6 +28,7 @@ class StoreUserRequest extends FormRequest
             'fio' => 'required|string|max:100',
             'birth_date' => 'required|date',
             'group_id' => 'required|int',
+            'role' => 'required|int',
             'password' => 'required|string',
             'email' => 'required|email|unique:'.User::class,
             'address' => 'array',

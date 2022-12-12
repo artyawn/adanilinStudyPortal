@@ -23,7 +23,14 @@
                     <x-input-error :messages="$errors->get('group_id')" class="mt-2" />
                 </div>
 
-                <!-- Email Address -->
+            <!-- RoleSelect -->
+            <div class="mt-4">
+                <x-input-label for="role" :value="__('Role')" />
+                <x-role-select id="role" class="block mt-1 w-full" type="int" name="role" :value="old('role')" required ></x-role-select>
+                <x-input-error :messages="$errors->get('role')" class="mt-2" />
+            </div>
+
+            <!-- Email Address -->
             <div class="mt-4">
                 <x-input-label for="email" :value="__('Email')" />
                 <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />

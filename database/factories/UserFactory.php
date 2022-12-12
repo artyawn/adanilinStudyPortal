@@ -31,7 +31,8 @@ class UserFactory extends Factory
                 'city' => $this->faker->city(),
                 'street' => $this->faker->streetAddress(),
                 'home' => $this->faker->numberBetween(1,100)
-            ]
+            ],
+            'role' => $this->faker->numberBetween(1,3)
         ];
     }
 }
