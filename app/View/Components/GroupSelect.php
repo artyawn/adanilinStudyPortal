@@ -21,14 +21,13 @@ class GroupSelect extends Component
 
     public function isSelected($group_id, $user = null)
     {
-        if ($user) {
-            if ($user->group->id == $group_id) {
-                return true;
-            }
-        }
-        elseif (Auth::user()?->group->id == $group_id) {
+        if (
+            $user?->group->id == $group_id
+            || Auth::user()?->group->id == $group_id
+        ) {
             return true;
         }
+
         return false;
     }
 

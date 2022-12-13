@@ -21,14 +21,13 @@ class RoleSelect extends Component
 
     public function isSelected($role, $user = null)
     {
-        if ($user) {
-            if ($user->role == $role->value) {
-                return true;
-            }
-        }
-        elseif (Auth::user()?->role == $role->value) {
+        if (
+            $user?->role == $role->value
+            || Auth::user()?->role == $role->value
+        ) {
             return true;
         }
+
         return false;
     }
     /**
