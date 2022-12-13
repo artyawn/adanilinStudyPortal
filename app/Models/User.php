@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -16,7 +17,8 @@ class User extends Authenticatable
         'fio',
         'birth_date',
         'group_id',
-        'address'
+        'address',
+        'role'
     ];
 
     protected $casts = [
@@ -79,6 +81,13 @@ class User extends Authenticatable
         else {
             return null;
         }
+    }
+
+    protected function role(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Role::tryFrom($value)->name,
+        );
     }
 
     public function scopeFilter($query, $request)

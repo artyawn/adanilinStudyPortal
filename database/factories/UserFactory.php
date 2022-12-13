@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\Role;
 use App\Models\Group;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -31,7 +32,8 @@ class UserFactory extends Factory
                 'city' => $this->faker->city(),
                 'street' => $this->faker->streetAddress(),
                 'home' => $this->faker->numberBetween(1,100)
-            ]
+            ],
+            'role' => Role::getRandom()
         ];
     }
 }

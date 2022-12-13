@@ -2,13 +2,13 @@
 
 namespace App\View\Components;
 
-use App\Models\Group;
+use App\Enums\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 
-class GroupSelect extends Component
+class RoleSelect extends Component
 {
-    public $groups;
+    public $roles;
     /**
      * Create a new component instance.
      *
@@ -16,21 +16,20 @@ class GroupSelect extends Component
      */
     public function __construct()
     {
-       $this->groups = Group::all();
+        $this->roles = Role::cases();
     }
 
-    public function isSelected($group_id, $user = null)
+    public function isSelected($role, $user = null)
     {
         if (
-            $user?->group->id == $group_id
-            || Auth::user()?->group->id == $group_id
+            $user?->role == $role->value
+            || Auth::user()?->role == $role->value
         ) {
             return true;
         }
 
         return false;
     }
-
     /**
      * Get the view / contents that represent the component.
      *
@@ -38,6 +37,6 @@ class GroupSelect extends Component
      */
     public function render()
     {
-        return view('components.group-select');
+        return view('components.role-select');
     }
 }
