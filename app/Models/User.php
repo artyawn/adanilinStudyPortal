@@ -83,16 +83,11 @@ class User extends Authenticatable
         }
     }
 
-    public function getRoleAttribute()
+    protected function role(): Attribute
     {
-        foreach (Role::cases() as $role) {
-            if ($this->role == $role->value) {
-                return $role->name;
-            }
-            else {
-                return null;
-            }
-        }
+        return Attribute::make(
+            get: fn ($value) => Role::tryFrom($value)->name,
+        );
     }
 
     public function scopeFilter($query, $request)

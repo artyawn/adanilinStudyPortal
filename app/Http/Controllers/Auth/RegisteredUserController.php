@@ -34,7 +34,6 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request);
         $request->validate([
             'fio' => ['required', 'string', 'max:255'],
             'group_id' => ['required', 'string', 'max:255'],

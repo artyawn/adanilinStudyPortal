@@ -7,6 +7,7 @@
     <h5>Группа: {{ $user->group->name }}</h5>
     <h5>Адрес: {{ $user->full_address }}</h5>
     <h5>Email: {{ $user->email }}</h5>
+    <h5>Роль: {{ $user->role }}</h5>
     </div>
     <div class="col-6">
         <a href="{{ route('users.subjects.create', $user) }}" class="link-dark">
