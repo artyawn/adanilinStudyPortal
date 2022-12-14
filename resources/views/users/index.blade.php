@@ -2,8 +2,10 @@
 @section('content')
     <div class="row">
         <div class="col-6">
+            @can('create', \App\Models\User::class)
     <a href="{{ route('users.create') }}" class="link-dark">
         <h6>Добавить студента</h6></a>
+            @endcan
         </div>
         <div class="col-6">
         <form action="{{ route('users.index') }}" method="get">
@@ -43,12 +45,16 @@
                 <td>{{ $user->id }}</td>
                 <td><a href="{{ route('users.show', $user->id) }}">{{ $user->fio }}</a></td>
                 <td><div class="row">
+                        @can('edit', $user)
                         <div class="col"><a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Изменить</a></div>
+                        @endcan
+                        @can('delete', $user)
                         <div class="col"><form action="{{ route('users.destroy', $user->id) }}" method="post">
                                 @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-danger">Удалить</button>
                             </form></div>
+                            @endcan
                     </div>
                 </td>
             </tr>

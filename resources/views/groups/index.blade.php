@@ -2,8 +2,10 @@
 @section('content')
     <div class="row">
         <div class="col-6">
+            @can('create', \App\Models\Group::class)
     <a href="{{ route('groups.create') }}" class="link-dark">
         <h6>Новая группа</h6></a>
+            @endcan
         </div>
     <div class="col-6">
     <form action="{{ route('groups.index') }}" method="get">
@@ -36,12 +38,16 @@
             <td>{{ $group->id }}</td>
             <td><a href="{{ route('groups.show', $group->id) }}">{{ $group->name }}</a></td>
             <td><div class="row">
+                    @can('update', $group)
                     <div class="col"><a href="{{ route('groups.edit', $group->id) }}" class="btn btn-primary">Изменить</a></div>
+                    @endcan
+                    @can('delete', $group)
                     <div class="col"><form action="{{ route('groups.destroy', $group->id) }}" method="post">
                             @csrf
                             @method('delete')
                             <button type="submit" class="btn btn-danger">Удалить</button>
                         </form></div>
+                        @endcan
                 </div>
             </td>
         </tr>
