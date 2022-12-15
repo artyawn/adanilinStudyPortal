@@ -10,7 +10,7 @@
     <h5>Роль: {{ $user->role }}</h5>
     </div>
     <div class="col-6">
-        @can('redact-score', $user)
+        @can('edit-score', $user)
         <a href="{{ route('users.subjects.create', $user) }}" class="link-dark">
             <h6>Новая оценка</h6></a>
         @endcan
@@ -28,7 +28,7 @@
                 <td>{{ $subject->name }}</td>
                 <td>{{ $subject->pivot->score }}</td>
                 <td>
-                    @can('redact-score', $user)
+                    @can('edit-score', $user)
                     <div class="row">
                         <div class="col"><a href="{{ route('users.subjects.edit', [$user, $subject]) }}" class="btn btn-primary">Изменить</a></div>
                         <div class="col"><form action="{{ route('users.subjects.destroy', [$user, $subject]) }}" method="post">

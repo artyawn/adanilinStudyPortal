@@ -2,10 +2,9 @@
 
 namespace App\Providers;
 
-use App\Enums\Role;
 use App\Models\User;
+use App\Policies\ScorePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
@@ -28,15 +27,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('redact-score', function (User $user, User $model) {
-           return (
-               $user->role == Role::Admin->name
-               || $user->role == Role::Teacher->name
-           )
-               && $user->group_id == $model->group_id
-               && $model->role == Role::Student->name
-               ? Response::allow()
-               : Response::deny('You are not authorized for this action');
+        Gate::define('edit-score', function (User $user, User $model) {
+           return ScorePolicy::editScore($user, $model);
         });
     }
 }

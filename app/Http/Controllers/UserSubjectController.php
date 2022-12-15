@@ -6,14 +6,13 @@ use App\Http\Requests\StoreUserSubjectRequest;
 use App\Http\Requests\UpdateUserSubjectRequest;
 use App\Models\Subject;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class UserSubjectController extends Controller
 {
     public function create(User $user)
     {
-        Gate::authorize('redact-score', $user);
+        Gate::authorize('edit-score', $user);
         $subjects = Subject::all();
 
         return view('scores.create', compact('subjects', 'user'));
@@ -21,7 +20,7 @@ class UserSubjectController extends Controller
 
     public function store(StoreUserSubjectRequest $request, User $user)
     {
-        Gate::authorize('redact-score', $user);
+        Gate::authorize('edit-score', $user);
         $user->subjects()->attach($request->validated('subject_id'), ['score' => $request->validated('score')]);
 
         return redirect()->route('users.show', $user);
@@ -29,7 +28,7 @@ class UserSubjectController extends Controller
 
     public function edit(User $user, Subject $subject)
     {
-        Gate::authorize('redact-score', $user);
+        Gate::authorize('edit-score', $user);
         $subject = $user->subjects->firstWhere('id', $subject->id);
 
         return view('scores.edit', compact( 'user', 'subject'));
@@ -37,7 +36,7 @@ class UserSubjectController extends Controller
 
     public function update(UpdateUserSubjectRequest $request, User $user, Subject $subject)
     {
-       Gate::authorize('redact-score', $user);
+       Gate::authorize('edit-score', $user);
        $user->subjects()->updateExistingPivot($subject->id, ['score' => $request->validated('score')]);
 
        return redirect()->route('users.show', $user);
@@ -45,7 +44,7 @@ class UserSubjectController extends Controller
 
     public function destroy(User $user, Subject $subject)
     {
-       Gate::authorize('redact-score', $user);
+       Gate::authorize('edit-score', $user);
        $user->subjects()->detach($subject->id);
 
        return redirect()->route('users.show', $user);
