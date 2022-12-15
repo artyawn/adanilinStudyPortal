@@ -2,14 +2,11 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
-use App\Models\Group;
-use App\Models\Subject;
+use App\Enums\Role;
 use App\Models\User;
-use App\Policies\GroupPolicy;
-use App\Policies\SubjectPolicy;
-use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -31,6 +28,15 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('redact-score', function (User $user, User $model) {
+           return (
+               $user->role == Role::Admin->name
+               || $user->role == Role::Teacher->name
+           )
+               && $user->group_id == $model->group_id
+               && $model->role == Role::Student->name
+               ? Response::allow()
+               : Response::deny('You are not authorized for this action');
+        });
     }
 }
