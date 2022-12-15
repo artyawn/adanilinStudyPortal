@@ -27,8 +27,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('edit-score', function (User $user, User $model) {
-           return ScorePolicy::editScore($user, $model);
-        });
+        Gate::define('edit-score', [ScorePolicy::class, 'editScore']);
     }
 }
