@@ -29,6 +29,7 @@ class UpdateUserRequest extends FormRequest
             'fio' => 'required|string|max:100',
             'birth_date' => 'required|date',
             'group_id' => 'required|int',
+            'role' => 'required|int',
             'email' => [
                 'email',
                 'max:255',

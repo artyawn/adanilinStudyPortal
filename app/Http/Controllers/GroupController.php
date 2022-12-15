@@ -6,6 +6,7 @@ use App\Http\Requests\CreateGroupRequest;
 use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
 use App\Models\Group;
+use App\Models\Subject;
 use App\Models\User;
 
 class GroupController extends Controller
@@ -19,11 +20,13 @@ class GroupController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Group::class);
         return view('groups.create');
     }
 
     public function store(StoreGroupRequest $request)
     {
+        $this->authorize('create', Group::class);
         Group::create($request->validated());
 
         return redirect()->route('groups.index');
@@ -36,11 +39,13 @@ class GroupController extends Controller
 
     public function edit(Group $group)
     {
+        $this->authorize('update', $group);
         return view('groups.edit', compact('group'));
     }
 
     public function update(UpdateGroupRequest $request, Group $group)
     {
+        $this->authorize('update', $group);
         $group->update($request->validated());
 
         return redirect()->route('groups.index');
@@ -48,6 +53,7 @@ class GroupController extends Controller
 
     public function destroy(Group $group)
     {
+        $this->authorize('delete', $group);
         $group->delete();
 
         return redirect()->route('groups.index');

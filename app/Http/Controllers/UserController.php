@@ -6,12 +6,9 @@ use App\Events\UserCreated;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\CreateUserRequest;
-use App\Mail\PasswordMail;
 use App\Models\Group;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
+
 
 class UserController extends Controller
 {
@@ -24,6 +21,7 @@ class UserController extends Controller
 
     public function create()
     {
+        $this->authorize('create', User::class);
         $groups = Group::all();
 
         return view('users.create', compact('groups'));
@@ -31,6 +29,7 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
+        $this->authorize('store', [User::class, $request]);
         $user = User::create($request->validated());
         event(new UserCreated($user, $request->validated('password')));
 
@@ -46,6 +45,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        $this->authorize('edit', $user);
         $groups = Group::all();
 
         return view('users.edit', compact( 'user', 'groups'));
@@ -53,6 +53,7 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
+        $this->authorize('update', [User::class, $request]);
         $user->update($request->validated());
 
         return redirect()->route('users.index');
@@ -60,6 +61,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        $this->authorize('delete', $user);
         $user->delete();
 
         return redirect()->route('users.index');
