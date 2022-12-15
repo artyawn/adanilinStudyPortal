@@ -33,8 +33,7 @@ class GroupPolicy
     public function update(User $user, Group $group)
     {
         return $user->role == Role::Admin->name
-            &&
-            $group->id == $user->group_id;
+            && $group->id == $user->group_id;
     }
 
     /**
