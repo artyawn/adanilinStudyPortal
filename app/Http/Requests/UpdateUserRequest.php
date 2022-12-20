@@ -30,6 +30,7 @@ class UpdateUserRequest extends FormRequest
             'birth_date' => 'required|date',
             'group_id' => 'required|int',
             'role' => 'required|int',
+            'avatar' => 'sometimes|image:jpg,jpeg,png',
             'email' => [
                 'email',
                 'max:255',

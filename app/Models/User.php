@@ -18,7 +18,8 @@ class User extends Authenticatable
         'birth_date',
         'group_id',
         'address',
-        'role'
+        'role',
+        'avatar'
     ];
 
     protected $casts = [
@@ -99,5 +100,10 @@ class User extends Authenticatable
         if ($request->birth_date) {
             $query->where('birth_date', 'like', "%{$request->birth_date}%");
         }
+    }
+
+    public function setAvatarAttribute($value)
+    {
+        $this->attributes['avatar'] = $value->getClientOriginalName();
     }
 }

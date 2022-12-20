@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Events\UserCreated;
+use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Http\Requests\CreateUserRequest;
 use App\Models\Group;
 use App\Models\User;
-
+use App\Services\FileService;
 
 class UserController extends Controller
 {
@@ -27,10 +27,11 @@ class UserController extends Controller
         return view('users.create', compact('groups'));
     }
 
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request, FileService $service)
     {
         $this->authorize('store', [User::class, $request]);
         $user = User::create($request->validated());
+        $service->saveAvatar($user, $request);
         event(new UserCreated($user, $request->validated('password')));
 
         return redirect()->route('users.index');
@@ -40,7 +41,7 @@ class UserController extends Controller
     {
         $subjects = $user->subjects;
 
-        return view('users.show', compact( 'user','subjects'));
+        return view('users.show', compact('user', 'subjects'));
     }
 
     public function edit(User $user)
@@ -48,18 +49,26 @@ class UserController extends Controller
         $this->authorize('edit', $user);
         $groups = Group::all();
 
-        return view('users.edit', compact( 'user', 'groups'));
+        return view('users.edit', compact('user', 'groups'));
     }
 
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, User $user, FileService $service)
     {
         $this->authorize('update', [User::class, $request]);
         $user->update($request->validated());
+        $service->updateAvatar($user, $request);
 
         return redirect()->route('users.index');
     }
 
-    public function destroy(User $user)
+    public function export(User $user, FileService $service)
+    {
+        $this->authorize('export', User::class);
+
+        return $service->exportPdf($user);
+    }
+
+    public function destroy(User $user, FileService $service)
     {
         $this->authorize('delete', $user);
         $user->delete();

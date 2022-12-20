@@ -55,6 +55,11 @@
                                 <button type="submit" class="btn btn-danger">Удалить</button>
                             </form></div>
                             @endcan
+                            @can('export', $user)
+                            <div class="col"><form action="{{ route('users.export', $user->id) }}" method="get">
+                                    <button type="submit" class="btn btn-warning">PDF</button>
+                                </form></div>
+                                @endcan
                     </div>
                 </td>
             </tr>
