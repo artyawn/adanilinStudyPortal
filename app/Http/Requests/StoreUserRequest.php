@@ -29,6 +29,7 @@ class StoreUserRequest extends FormRequest
             'birth_date' => 'required|date',
             'group_id' => 'required|int',
             'role' => 'required|int',
+            'avatar' => 'sometimes|image:jpg,jpeg,png',
             'password' => 'required|string',
             'email' => 'required|email|unique:'.User::class,
             'address' => 'array',

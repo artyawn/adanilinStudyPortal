@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-6">
-        <form action="{{ $action }}" method="post">
+        <form action="{{ $action }}" method="post" enctype="multipart/form-data">
             @csrf
             @method($method)
             <input type="text" class="form-control" name="fio"
@@ -48,6 +48,11 @@
             <br>
             @error('email')
             <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+            <input type="file" class="form-control" name="avatar" id="avatar">
+            <br>
+            @error('avatar')
+            <div class="alert alert-danger"> {{ $message }}</div>
             @enderror
             @if(!isset($user))
             <input type="text" class="form-control" name="password"

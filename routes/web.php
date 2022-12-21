@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('users.subjects', UserSubjectController::class);
     Route::get('/gradebook', [GradeBookController::class, 'index'])->name('gradebook.index');
+    Route::get('users/{user}/export', [UserController::class, 'export'])->name('users.export');
 });
 
 require __DIR__.'/auth.php';

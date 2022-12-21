@@ -57,6 +57,10 @@ class UserPolicy
         };
     }
 
+    public function export(User $user)
+    {
+        return $user->role == Role::Admin->name || $user->role == Role::Teacher->name;
+    }
     /**
      * Determine whether the user can delete the model.
      *

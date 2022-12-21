@@ -1,7 +1,11 @@
 @extends('layouts.app')
+@inject('avatar', 'App\Services\FileService')
 @section('content')
     <div class="row">
     <div class="col-6">
+        <div class="col-lg-6">
+          <img src="{{ $avatar->showAvatar($user) }}" class=rounded-circle alt="avatar">
+        </div><br>
     <h5>ФИО: {{ $user->fio }}</h5><br>
     <h5>Дата рождения: {{ $user->birth_date }}</h5>
     <h5>Группа: {{ $user->group->name }}</h5>
