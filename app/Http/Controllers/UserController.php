@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Role;
 use App\Events\UserCreated;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\StoreUserRequest;
@@ -14,7 +15,7 @@ class UserController extends Controller
 {
     public function index(CreateUserRequest $request)
     {
-        $users = User::filter($request)->paginate(10);
+        $users = User::filter($request)->withTrashedFilter()->paginate(10);
 
         return view('users.index', compact('users'));
     }
@@ -39,6 +40,7 @@ class UserController extends Controller
 
     public function show(User $user)
     {
+        $this->authorize('view', $user);
         $subjects = $user->subjects;
 
         return view('users.show', compact('user', 'subjects'));
@@ -68,10 +70,26 @@ class UserController extends Controller
         return $service->exportPdf($user);
     }
 
-    public function destroy(User $user, FileService $service)
+    public function destroy(User $user)
     {
         $this->authorize('delete', $user);
         $user->delete();
+
+        return redirect()->route('users.index');
+    }
+
+    public function restore(User $user)
+    {
+        $this->authorize('restore', $user);
+        $user->restore();
+
+        return redirect()->route('users.index');
+    }
+
+    public function forceDelete(User $user)
+    {
+        $this->authorize('forceDelete', $user);
+        $user->forceDelete();
 
         return redirect()->route('users.index');
     }
