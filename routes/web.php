@@ -29,10 +29,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile',[ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('groups',GroupController::class);
     Route::resource('subjects',SubjectController::class);
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class)->withTrashed();
     Route::resource('users.subjects', UserSubjectController::class);
     Route::get('/gradebook', [GradeBookController::class, 'index'])->name('gradebook.index');
-    Route::get('users/{user}/export', [UserController::class, 'export'])->name('users.export');
+    Route::get('users/{user}/export', [UserController::class, 'export'])->name('users.export')->withTrashed();
+    Route::get('users/{user}/forceDelete', [UserController::class, 'forceDelete'])->name('users.force.delete');
+    Route::get('users/{user}/restore', [UserController::class, 'restore'])->name('users.restore')->withTrashed();
 });
 
 require __DIR__.'/auth.php';

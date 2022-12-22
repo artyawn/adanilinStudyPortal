@@ -12,12 +12,13 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can create models.
-     *
-     * @param \App\Models\User $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
+    public function view(User $user, User $model)
+    {
+        return $user->role == Role::Admin->name
+            && $model->trashed()
+            || !$model->trashed();
+    }
+
     public function create(User $user)
     {
         return $user->role == Role::Admin->name || $user->role == Role::Teacher->name;
@@ -70,8 +71,20 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        return $user->role == Role::Admin->name
-            && $model->group_id == $user->group_id
-            && $model->role != Role::Admin->name;
+        return match (true) {
+            $user->role == Role::Admin->name => $user->group_id == $model->group_id && $model->role != Role::Admin->name,
+            $user->role == Role::Teacher->name => $user->group_id == $model->group_id && $model->role == Role::Student->name,
+            default => false,
+        };
+    }
+
+    public function restore(User $user)
+    {
+        return $user->role == Role::Admin->name;
+    }
+
+    public function forceDelete(User $user, User $model)
+    {
+        return $user->role == Role::Admin->name && $model->role != Role::Admin->name;
     }
 }

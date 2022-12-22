@@ -36,6 +36,7 @@
         <tr>
             <th scope="col">id</th>
             <th scope="col">Имя</th>
+            <th scope="col">Роль</th>
             <th scope="col">Действия</th>
         </tr>
         </thead>
@@ -44,20 +45,35 @@
             <tr>
                 <td>{{ $user->id }}</td>
                 <td><a href="{{ route('users.show', $user->id) }}">{{ $user->fio }}</a></td>
+                <td>{{ $user->role }}</td>
                 <td><div class="row">
                         @can('edit', $user)
                         <div class="col"><a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Изменить</a></div>
                         @endcan
+                        @if(!$user->trashed())
                         @can('delete', $user)
                         <div class="col"><form action="{{ route('users.destroy', $user->id) }}" method="post">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="btn btn-danger">Удалить</button>
+                                <button type="submit" class="btn btn-outline-danger">Удалить</button>
                             </form></div>
                             @endcan
-                            @can('export', $user)
+                            @endif
+                            @can('export', \App\Models\User::class)
                             <div class="col"><form action="{{ route('users.export', $user->id) }}" method="get">
                                     <button type="submit" class="btn btn-warning">PDF</button>
+                                </form></div>
+                                @endcan
+                            @if($user->trashed())
+                            @can('restore', $user)
+                            <div class="col"><form action="{{ route('users.restore', $user->id) }}" method="get">
+                                    <button type="submit" class="btn btn-success">Восстановить</button>
+                                </form></div>
+                            @endcan
+                            @endif
+                            @can('forceDelete', $user)
+                            <div class="col"><form action="{{ route('users.force.delete', $user->id) }}" method="get">
+                                    <button type="submit" class="btn btn-danger">Удалить</button>
                                 </form></div>
                                 @endcan
                     </div>

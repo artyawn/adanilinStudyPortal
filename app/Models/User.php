@@ -4,13 +4,17 @@ namespace App\Models;
 
 use App\Enums\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
     use HasFactory;
+    use SoftDeletes;
+
     protected $fillable = [
         'password',
         'email',
@@ -25,7 +29,7 @@ class User extends Authenticatable
     protected $casts = [
         'birth_date' => 'date',
         'address' => 'array',
-        'email_verified_at' => 'datetime'
+        'email_verified_at' => 'datetime',
     ];
 
     public function group()
@@ -99,6 +103,13 @@ class User extends Authenticatable
 
         if ($request->birth_date) {
             $query->where('birth_date', 'like', "%{$request->birth_date}%");
+        }
+    }
+
+    public function scopeWithTrashedFilter($query)
+    {
+        if (Auth::user()->role == Role::Admin->name) {
+            $query->withTrashed();
         }
     }
 
