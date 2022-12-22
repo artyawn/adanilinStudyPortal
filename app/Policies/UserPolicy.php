@@ -14,13 +14,9 @@ class UserPolicy
 
     public function view(User $user, User $model)
     {
-        return (
-            $user->role == Role::Admin->name
+        return $user->role == Role::Admin->name
             && $model->trashed()
-        )
-        || (
-        !$model->trashed()
-        );
+            || !$model->trashed();
     }
 
     public function create(User $user)
@@ -75,15 +71,11 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        return $model->group_id == $user->group_id
-            && ((
-            $user->role == Role::Teacher->name
-            && $model->role == Role::Student->name
-            )
-            || (
-                $user->role == Role::Admin->name
-            && $model->role != Role::Admin->name
-                ));
+        return match (true) {
+            $user->role == Role::Admin->name => $user->group_id == $model->group_id && $model->role != Role::Admin->name,
+            $user->role == Role::Teacher->name => $user->group_id == $model->group_id && $model->role == Role::Student->name,
+            default => false,
+        };
     }
 
     public function restore(User $user)
