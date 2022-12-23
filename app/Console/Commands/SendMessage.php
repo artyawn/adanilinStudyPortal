@@ -31,6 +31,7 @@ class SendMessage extends Command
     public function handle()
     {
         $users = User::with('subjects')->get();
+
         foreach ($users as $user) {
             Mail::to($user->email)->send(new PerformanceMail($user));
         }
