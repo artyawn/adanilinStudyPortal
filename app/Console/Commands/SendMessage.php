@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Jobs\UserPerformanceMail;
+use App\Models\User;
 use Illuminate\Console\Command;
 
 class SendMessage extends Command
@@ -26,6 +27,10 @@ class SendMessage extends Command
      */
     public function handle()
     {
-        dispatch(new UserPerformanceMail());
+        $users = User::with('subjects')->get();
+
+        foreach ($users as $user) {
+            dispatch(new UserPerformanceMail($user));
+        }
     }
 }

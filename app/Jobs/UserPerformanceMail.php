@@ -17,6 +17,11 @@ class UserPerformanceMail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $user;
+
+    public function __construct($user){
+        $this->user = $user;
+    }
     /**
      * Execute the job.
      *
@@ -24,14 +29,10 @@ class UserPerformanceMail implements ShouldQueue
      */
     public function handle()
     {
-        $users = User::with('subjects')->get();
-
-        foreach ($users as $user) {
-            try {
-                Mail::to($user->esdl)->send(new PerformanceMail($user));
-            } catch (\Throwable $exception) {
-                Log::channel('email')->critical('Message not sent to user id-' . $user->id, ['exception' => $exception->getMessage()]);
-            }
+        try {
+            Mail::to($this->user->email)->send(new PerformanceMail($this->user));
+        } catch (\Throwable $exception) {
+            Log::channel('email')->critical('Message not sent to user id-' . $this->user->id, ['exception' => $exception->getMessage()]);
         }
     }
 }
