@@ -2,15 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Mail\PasswordMail;
-use App\Mail\PerformanceMail;
-use App\Models\User;
+use App\Jobs\UserPerformanceMail;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
 
 class SendMessage extends Command
 {
-    public $users;
     /**
      * The name and signature of the console command.
      *
@@ -30,10 +26,6 @@ class SendMessage extends Command
      */
     public function handle()
     {
-        $users = User::with('subjects')->get();
-
-        foreach ($users as $user) {
-            Mail::to($user->email)->send(new PerformanceMail($user));
-        }
+        dispatch(new UserPerformanceMail());
     }
 }
