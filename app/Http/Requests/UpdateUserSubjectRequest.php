@@ -24,7 +24,7 @@ class UpdateUserSubjectRequest extends FormRequest
     public function rules()
     {
         return [
-            'score' => 'required|int|max:10'
+            'score' => 'required|int|max:10',
         ];
     }
 }

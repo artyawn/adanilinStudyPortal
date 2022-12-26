@@ -1,9 +1,6 @@
 <?php
 
-
 namespace App\Services;
-
-
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -33,7 +30,7 @@ class FileService
     public function showAvatar(User $user)
     {
         $path = "avatars/{$user->id}/" . $user->avatar;
-        $resize_path = "avatars/{$user->id}/" . "resize_{$user->avatar}";
+        $resize_path = "avatars/{$user->id}/resize_{$user->avatar}";
         if (Storage::disk('avatars')->missing($path)) {
             $path_show = 'avatars/default.png';
 
@@ -42,7 +39,7 @@ class FileService
 
         if (Storage::disk('avatars')->missing($resize_path)) {
             $avatar = Image::make(Storage::disk('avatars')->path($path));
-            $avatar->resize(200,200);
+            $avatar->resize(200, 200);
             $avatar->save(Storage::disk('avatars')->path($resize_path));
 
             return Storage::url($resize_path);
@@ -59,7 +56,7 @@ class FileService
     public function exportPdf(User $user)
     {
         $subjects = $user->subjects;
-        $pdf = PDF::loadView('users.pdf', compact('subjects', 'user'));
+        $pdf = Pdf::loadView('users.pdf', compact('subjects', 'user'));
 
         return $pdf->download("{$user->fio}.pdf");
     }

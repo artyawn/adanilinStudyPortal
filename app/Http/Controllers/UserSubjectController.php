@@ -31,7 +31,7 @@ class UserSubjectController extends Controller
         Gate::authorize('edit-score', $user);
         $subject = $user->subjects->firstWhere('id', $subject->id);
 
-        return view('scores.edit', compact( 'user', 'subject'));
+        return view('scores.edit', compact('user', 'subject'));
     }
 
     public function update(UpdateUserSubjectRequest $request, User $user, Subject $subject)

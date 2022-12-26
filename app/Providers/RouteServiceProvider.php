@@ -43,6 +43,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
+
     protected function configureRateLimiting()
     {
         RateLimiter::for('api', function (Request $request) {

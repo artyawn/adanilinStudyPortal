@@ -13,16 +13,6 @@ use Nette\Utils\Random;
 class ScoresForCreatedUser
 {
     /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * Handle the event.
      *
      * @param  object  $event
@@ -31,7 +21,7 @@ class ScoresForCreatedUser
     public function handle(UserCreated $event)
     {
         foreach (Subject::all() as $subject) {
-            $event->user->subjects()->attach($subject->id, ['score' => mt_rand(2,5)]);
+            $event->user->subjects()->attach($subject->id, ['score' => mt_rand(2, 5)]);
         }
     }
 }
