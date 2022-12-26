@@ -12,10 +12,8 @@ class ScorePolicy
     use HandlesAuthorization;
 
    public static function editScore(User $user, User $model) {
-       return (
-           $user->role == Role::Admin->name
-       || $user->role == Role::Teacher->name
-       )
+       return ($user->role == Role::Admin->name
+       || $user->role == Role::Teacher->name)
        && $user->group_id == $model->group_id
        && $model->role == Role::Student->name
            ? Response::allow()

@@ -11,10 +11,10 @@ use Illuminate\Queue\SerializesModels;
 
 class PasswordMail extends Mailable
 {
-    public $password;
 
     use Queueable, SerializesModels;
 
+    public $password;
     /**
      * Create a new message instance.
      *

@@ -16,7 +16,7 @@ class UserPolicy
     {
         return $user->role == Role::Admin->name
             && $model->trashed()
-            || !$model->trashed();
+            || ! $model->trashed();
     }
 
     public function create(User $user)
@@ -33,13 +33,6 @@ class UserPolicy
         };
     }
 
-    /**
-     * Determine whether the user can update the model.
-     *
-     * @param \App\Models\User $user
-     * @param \App\Models\User $model
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
     public function edit(User $user, User $model)
     {
         return match (true) {
@@ -62,13 +55,7 @@ class UserPolicy
     {
         return $user->role == Role::Admin->name || $user->role == Role::Teacher->name;
     }
-    /**
-     * Determine whether the user can delete the model.
-     *
-     * @param \App\Models\User $user
-     * @param \App\Models\User $model
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
+
     public function delete(User $user, User $model)
     {
         return match (true) {

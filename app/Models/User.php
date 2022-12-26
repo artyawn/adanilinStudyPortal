@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use App\Enums\Role;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -23,7 +23,7 @@ class User extends Authenticatable
         'group_id',
         'address',
         'role',
-        'avatar'
+        'avatar',
     ];
 
     protected $casts = [
@@ -42,35 +42,16 @@ class User extends Authenticatable
         return $this->belongsToMany(Subject::class)->withPivot('score');
     }
 
-    protected function birthDate(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => date("d.m.Y", strtotime($value)),
-        );
-    }
-
-    protected function color(): Attribute
-    {
-        return Attribute::make(
-            get: function (){
-            if($this->subjects->min('pivot.score') == 4){
-                return "table-warning";
-            }
-            elseif ($this->subjects->min('pivot.score') == 5){
-                return "table-success";
-            }
-            else {
-                return "table-danger";
-            }
-           }
-        );
-    }
-
     public function setAddressAttribute($value)
     {
-        $value['city'] = mb_convert_case($value['city'], MB_CASE_TITLE, "UTF-8");
-        $value['street'] = mb_convert_case($value['street'], MB_CASE_TITLE, "UTF-8");
+        $value['city'] = mb_convert_case($value['city'], MB_CASE_TITLE, 'UTF-8');
+        $value['street'] = mb_convert_case($value['street'], MB_CASE_TITLE, 'UTF-8');
         $this->attributes['address'] = json_encode($value);
+    }
+
+    public function setAvatarAttribute($value)
+    {
+        $this->attributes['avatar'] = $value->getClientOriginalName();
     }
 
     public function setPasswordAttribute($value)
@@ -83,16 +64,8 @@ class User extends Authenticatable
         if($this->address) {
             return "{$this->address['city']} {$this->address['street']} {$this->address['home']}";
         }
-        else {
-            return null;
-        }
-    }
 
-    protected function role(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => Role::tryFrom($value)->name,
-        );
+        return null;
     }
 
     public function scopeFilter($query, $request)
@@ -113,8 +86,33 @@ class User extends Authenticatable
         }
     }
 
-    public function setAvatarAttribute($value)
+    protected function birthDate(): Attribute
     {
-        $this->attributes['avatar'] = $value->getClientOriginalName();
+        return Attribute::make(
+            get: fn ($value) => date('d.m.Y', strtotime($value)),
+        );
+    }
+
+    protected function color(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if($this->subjects->min('pivot.score') == 4){
+                    return "table-warning";
+                }
+                if ($this->subjects->min('pivot.score') == 5){
+                    return "table-success";
+                }
+
+                return "table-danger";
+            }
+        );
+    }
+
+    protected function role(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Role::tryFrom($value)->name,
+        );
     }
 }

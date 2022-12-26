@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Subject;
 use App\Models\User;
 use App\Services\GradeBookService;
-use Illuminate\Http\Request;
 
 class GradeBookController extends Controller
 {
@@ -18,5 +16,5 @@ class GradeBookController extends Controller
         $best_users = $service->bestUsers();
 
         return view('book.index', compact('subjects', 'users', 'average', 'good_users', 'best_users'));
-   }
+    }
 }

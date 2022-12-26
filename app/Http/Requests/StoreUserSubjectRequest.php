@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\isScored;
+use App\Rules\IsScored;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUserSubjectRequest extends FormRequest
@@ -29,7 +29,7 @@ class StoreUserSubjectRequest extends FormRequest
             'subject_id' => [
                 'required',
                 'int',
-                new isScored($this->user->id)
+                new IsScored($this->user->id)
             ]
         ];
     }
