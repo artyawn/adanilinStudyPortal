@@ -51,6 +51,11 @@ return [
     */
 
     'channels' => [
+        'email' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/email.log'),
+        ],
+
         'stack' => [
             'driver' => 'stack',
             'channels' => ['single'],
