@@ -3,8 +3,6 @@
 namespace App\Jobs;
 
 use App\Mail\PerformanceMail;
-use App\Models\User;
-use Error;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
