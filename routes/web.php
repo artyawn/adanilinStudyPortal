@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\GradeBookController;
-use App\Http\Controllers\GroupController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SubjectController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserSubjectController;
+use App\Http\Controllers\web\GradeBookController;
+use App\Http\Controllers\web\GroupController;
+use App\Http\Controllers\web\ProfileController;
+use App\Http\Controllers\web\SubjectController;
+use App\Http\Controllers\web\UserController;
+use App\Http\Controllers\web\UserSubjectController;
 use Illuminate\Support\Facades\Route;
 
 /*

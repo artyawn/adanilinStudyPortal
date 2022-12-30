@@ -60,4 +60,14 @@ class FileService
 
         return $pdf->download("{$user->fio}.pdf");
     }
+
+    public function getLink(User $user)
+    {
+        $subjects = $user->subjects;
+        $path = "export/{$user->id}/{$user->fio}.pdf";
+        $pdf = Pdf::loadView('users.pdf', compact('subjects', 'user'));
+        Storage::disk('public')->put($path, $pdf->output());
+
+        return Storage::disk('public')->url($path);
+    }
 }

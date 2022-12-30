@@ -1,6 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\api\GroupController;
+use App\Http\Controllers\api\UserController;
+use App\Http\Controllers\api\UserSubjectController;
+use App\Http\Controllers\api\SubjectController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +17,19 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('login',[AuthController::class, 'login']);
+Route::post('resetPassword',[AuthController::class, 'resetPassword']);
+Route::middleware('auth:api')->group(function() {
+  Route::post('logout',[AuthController::class, 'logout']);
+  Route::apiResource('users', UserController::class)->withTrashed();
+  Route::get('users/{user}/export', [UserController::class, 'export'])->withTrashed();
+  Route::delete('users/{user}/force_delete', [UserController::class, 'forceDelete'])->withTrashed();
+  Route::post('users/{user}/restore', [UserController::class, 'restore'])->withTrashed();
+  Route::apiResource('groups', GroupController::class);
+  Route::apiResource('subjects', SubjectController::class);
+  Route::apiResource('users.subjects', UserSubjectController::class);
 });
+
+
+
+
