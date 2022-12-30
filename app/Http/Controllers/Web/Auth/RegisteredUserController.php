@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\web\Auth;
+namespace App\Http\Controllers\Web\Auth;
 
 use App\Events\UserCreated;
 use App\Http\Controllers\Controller;

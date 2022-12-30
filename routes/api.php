@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\api\AuthController;
-use App\Http\Controllers\api\GroupController;
-use App\Http\Controllers\api\UserController;
-use App\Http\Controllers\api\UserSubjectController;
-use App\Http\Controllers\api\SubjectController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\GroupController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\UserSubjectController;
+use App\Http\Controllers\Api\SubjectController;
 use Illuminate\Support\Facades\Route;
 
 /*
